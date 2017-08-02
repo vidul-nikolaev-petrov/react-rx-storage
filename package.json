@@ -1,0 +1,39 @@
+{
+  "name": "react-rx-storage",
+  "version": "1.0.0",
+  "description": "Storage for React.js based on RxJS",
+  "main": "index.js",
+  "scripts": {
+    "compile": "./node_modules/.bin/babel -d test/es5/ test/es6/; ./node_modules/.bin/babel -o indexES5.js index.js",
+    "pretest": "npm run compile",
+    "test": "node test/es5/index.js"
+  },
+  "dependencies": {
+    "rxjs": "^5.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "enzyme": "^2.9.0",
+    "react": "^15.5.0",
+    "react-dom": "^15.0.0",
+    "react-test-renderer": "^15.0.0",
+    "rxjs": "^5.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vidul-nikolaev-petrov/react-rx-storage.git"
+  },
+  "keywords": [
+    "storage",
+    "reactjs",
+    "rxjs"
+  ],
+  "author": "Vidul Nikolaev Petrov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vidul-nikolaev-petrov/react-rx-storage/issues"
+  },
+  "homepage": "https://github.com/vidul-nikolaev-petrov/react-rx-storage#readme"
+}
