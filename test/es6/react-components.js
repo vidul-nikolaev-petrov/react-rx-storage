@@ -52,7 +52,7 @@ export class StepTwo extends React.Component {
 }
 
 export class StepThree extends React.Component {
-    // store globally
+    // set state through observer
     constructor(props) {
         super(props);
         this.state = { stepThree: false };
