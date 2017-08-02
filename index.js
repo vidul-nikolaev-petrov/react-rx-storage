@@ -1,11 +1,6 @@
 import Rx from 'rxjs/Rx';
 
 const store = {
-    // prefixes:
-    //      store = $
-    //      storeGlobal = $$
-    //      subject = subject$
-    //      component = component$`${store}`
     subscribe(component) {
         const route = this.getName(component);
 
