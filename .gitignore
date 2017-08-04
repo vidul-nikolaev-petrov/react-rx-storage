@@ -1,0 +1,5 @@
+.DS_Store
+indexES5.js
+node_modules
+server/log/
+test/es5/*
