@@ -9,39 +9,39 @@ import {
 } from './react-components';
 
 it('Test basic functionality', () => {
-    const div = shallow(<StepOne  />);
+    const component = shallow(<StepOne  />);
 
-    assert(div.text() === 'S1 false');
+    assert(component.text() === 'S1 false');
 
-    div.find('div').simulate('click');
-    assert(div.text() === 'S1 true');
+    component.find('div').simulate('click');
+    assert(component.text() === 'S1 true');
 
-    div.find('div').simulate('click');
-    assert(div.text() === 'S1 false');
+    component.find('div').simulate('click');
+    assert(component.text() === 'S1 false');
 });
 
 it('Test global storage', () => {
-    const div = shallow(<StepTwo />);
+    const component = shallow(<StepTwo />);
 
-    assert(div.text() === 'S2 false');
+    assert(component.text() === 'S2 false');
 
-    div.find('div').simulate('click');
-    assert(div.text() === 'S2 true');
+    component.find('div').simulate('click');
+    assert(component.text() === 'S2 true');
 
-    div.find('div').simulate('click');
-    assert(div.text() === 'S2 false');
+    component.find('div').simulate('click');
+    assert(component.text() === 'S2 false');
 });
 
 it('Test callbacks', () => {
-    const div = shallow(<StepThree />);
+    const component = shallow(<StepThree />);
 
-    assert(div.text() === 'S3 false');
+    assert(component.text() === 'S3 false');
 
-    div.find('div').simulate('click');
-    assert(div.text() === 'S3 true');
+    component.find('div').simulate('click');
+    assert(component.text() === 'S3 true');
 
-    div.find('div').simulate('click');
-    assert(div.text() === 'S3 false');
+    component.find('div').simulate('click');
+    assert(component.text() === 'S3 false');
 });
 
 it('Test promise success', () => {
