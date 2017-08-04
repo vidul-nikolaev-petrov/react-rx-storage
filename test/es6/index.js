@@ -2,9 +2,14 @@
 import React from 'react';
 import assert from 'assert';
 import { shallow } from 'enzyme';
-import { StepOne, StepTwo, StepThree } from './react-components';
+import {
+    StepOne,
+    StepTwo,
+    StepThree,
+    StepFour
+} from './react-components';
 
-it('StepOne - test basic storage', () => {
+it('Test basic functionality', () => {
     const div = shallow(<StepOne  />);
 
     assert(div.text() === 'S1 false');
@@ -16,7 +21,7 @@ it('StepOne - test basic storage', () => {
     assert(div.text() === 'S1 false');
 });
 
-it('StepTwo - test global storage', () => {
+it('Test global storage', () => {
     const div = shallow(<StepTwo />);
 
     assert(div.text() === 'S2 false');
@@ -28,7 +33,7 @@ it('StepTwo - test global storage', () => {
     assert(div.text() === 'S2 false');
 });
 
-it('StepThree - test callbacks', () => {
+it('Test callbacks', () => {
     const div = shallow(<StepThree />);
 
     assert(div.text() === 'S3 false');
@@ -39,6 +44,25 @@ it('StepThree - test callbacks', () => {
     div.find('div').simulate('click');
     assert(div.text() === 'S3 false');
 });
+
+it('Test promise success', () => {
+    const component = shallow(<StepFour />);
+
+    assert(component.text() === '');
+
+    component.find('div#success').simulate('click');
+    setTimeout(() => assert(component.find('div#success').text() === 'success'));
+});
+
+it('Test promise failure', () => {
+    const component = shallow(<StepFour />);
+
+    assert(component.text() === '');
+
+    component.find('div#error').simulate('click');
+    setTimeout(() => assert(component.find('div#error').text() === 'error'));
+});
+
 
 function it(string, fn) {
     try {

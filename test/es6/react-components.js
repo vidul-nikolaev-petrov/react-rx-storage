@@ -79,3 +79,50 @@ export class StepThree extends React.Component {
         );
     }
 }
+
+export class StepFour extends React.Component {
+    // set state through promise
+    constructor(props) {
+        super(props);
+        this.state = { stepFour: '' };
+        this.onSuccess = this.onSuccess.bind(this);
+        this.onError = this.onError.bind(this);
+
+        s$.subscribe(this);
+    }
+
+    onSuccess() {
+        const result = 'success';
+        const promise = new Promise((resolve, _) => resolve());
+        const onSuccess = () => {
+            this.setState({ stepFour: result });
+            return result;
+        };
+
+        s$.dispatch(this, 'stepFour', promise, { onSuccess });
+    }
+
+    onError() {
+        const result = 'error';
+        const promise = new Promise((_, reject) => reject());
+        const onError = () => {
+            this.setState({ stepFour: result });
+            return result;
+        };
+
+        s$.dispatch(this, 'stepFour', promise, { onError });
+    }
+
+    render() {
+        return (
+            <div>
+                <div onClick={this.onSuccess} id="success">
+                    { this.state.stepFour }
+                </div>
+                <div onClick={this.onError} id="error">
+                    { this.state.stepFour }
+                </div>
+            </div>
+        );
+    }
+}
