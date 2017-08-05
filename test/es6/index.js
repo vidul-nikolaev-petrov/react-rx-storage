@@ -5,7 +5,8 @@ import {
     StepOne,
     StepTwo,
     StepThree,
-    StepFour
+    StepFour,
+    StepFive
 } from './react-components';
 
 it('Test basic functionality', () => {
@@ -62,6 +63,14 @@ it('Test promise failure', () => {
     setTimeout(() => assert(component.find('div#error').text() === 'error'));
 });
 
+it('Test on complete', () => {
+    const component = shallow(<StepFive />);
+
+    assert(component.text() === '');
+
+    component.find('div').simulate('click');
+    setTimeout(() => assert(component.find('div').text() === 'unsubscribed'));
+});
 
 function it(string, fn) {
     try {

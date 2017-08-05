@@ -126,3 +126,31 @@ export class StepFour extends React.Component {
         );
     }
 }
+
+export class StepFive extends React.Component {
+    // set state on complete
+    constructor(props) {
+        super(props);
+        this.state = { stepFive: '' };
+        this.onComplete = this.onComplete.bind(this);
+
+        s$.subscribe(this);
+    }
+
+    onComplete() {
+        const result = 'unsubscribed';
+        const getStepFive = () =>  s$.get(this, 'stepFive');
+        const onSuccess = () => result;
+        const onComplete = () => this.setState({ stepFive: getStepFive() });
+
+        s$.dispatchOnce(this, 'stepFive', null, { onSuccess, onComplete });
+    }
+
+    render() {
+        return (
+            <div onClick={this.onComplete}>
+                { this.state.stepFive }
+            </div>
+        );
+    }
+}
