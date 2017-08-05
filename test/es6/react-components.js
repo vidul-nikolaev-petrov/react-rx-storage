@@ -139,11 +139,12 @@ export class StepFive extends React.Component {
 
     onComplete() {
         const result = 'unsubscribed';
+        const promise = new Promise((resolve) => resolve());
         const getStepFive = () =>  s$.get(this, 'stepFive');
         const onSuccess = () => result;
         const onComplete = () => this.setState({ stepFive: getStepFive() });
 
-        s$.dispatchOnce(this, 'stepFive', null, { onSuccess, onComplete });
+        s$.dispatch(this, 'stepFive', promise, { onSuccess, onComplete });
     }
 
     render() {

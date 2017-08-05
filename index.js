@@ -67,10 +67,6 @@ const store = {
                 comlpete => cbs.onComplete(value)
             );
     },
-    dispatchOnce(...args) {
-        const subscription = this.dispatch(...args);
-        setTimeout(subscription.unsubscribe);
-    },
     get(component, key) {
         const { store } = this.getName(component);
         return this.$[store][key];
