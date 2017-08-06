@@ -9,7 +9,7 @@ import {
     StepFive
 } from './react-components';
 
-execute('Test basic functionality', label => {
+it('Test basic functionality', label => {
     const component = shallow(<StepOne  />);
     const compFalse = () => assert.equal(component.text(), 'S1 false');
     const compTrue = () => assert.equal(component.text(), 'S1 true');
@@ -21,7 +21,7 @@ execute('Test basic functionality', label => {
     promiseIt(compFalse, label);
 });
 
-execute('Test global storage', (label) => {
+it('Test global storage', (label) => {
     const component = shallow(<StepTwo />);
     const compFalse = () => assert.equal(component.text(), 'S2 false');
     const compTrue = () => assert.equal(component.text(), 'S2 true');
@@ -33,7 +33,7 @@ execute('Test global storage', (label) => {
     promiseIt(compFalse, label);
 });
 
-execute('Test callbacks', label => {
+it('Test callbacks', label => {
     const component = shallow(<StepThree />);
     const compFalse = () => assert.equal(component.text(), 'S3 false');
     const compTrue = () => assert.equal(component.text(), 'S3 true');
@@ -45,7 +45,7 @@ execute('Test callbacks', label => {
     promiseIt(compFalse, label);
 });
 
-execute('Test promise success', label => {
+it('Test promise success', label => {
     const component = shallow(<StepFour />);
     const compareInitial = () => assert.equal(component.text(), '');
     const compareFinal = () => assert.equal(component.find('div#success').text(), 'success');
@@ -55,7 +55,7 @@ execute('Test promise success', label => {
     promiseItAsync(compareFinal, label);
 });
 
-execute('Test promise failure', label => {
+it('Test promise failure', label => {
     const component = shallow(<StepFour />);
     const compareInitial = () => assert.equal(component.text(), '');
     const compareFinal = () => assert.equal(component.find('div#error').text(), 'error');
@@ -65,7 +65,7 @@ execute('Test promise failure', label => {
     promiseItAsync(compareFinal, label);
 });
 
-execute('Test on complete', label => {
+it('Test on complete', label => {
     const component = shallow(<StepFive />);
     const compareInitial = () => assert.equal(component.text(), '');
     const compareFinal = () => assert.equal(component.find('div').text(), 'unsubscribed');
@@ -107,12 +107,12 @@ function promise(fn, async, label) {
         }
     })
     .then(
-        (s) => s && console.log(colorGreenPass(), s),
-        (e) => console.log(colorRed(e.name), e.message)
+        s => s && console.log(colorGreenPass(), s),
+        e => console.log(colorRed(e.name), e.message)
     );
 };
 
-function execute(label, fn) {
+function it(label, fn) {
     fn(label);
 }
 
