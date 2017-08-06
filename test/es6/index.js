@@ -21,7 +21,7 @@ it('Test basic functionality', label => {
     promiseIt(compFalse, label);
 });
 
-it('Test global storage', (label) => {
+it('Test global storage', label => {
     const component = shallow(<StepTwo />);
     const compFalse = () => assert.equal(component.text(), 'S2 false');
     const compTrue = () => assert.equal(component.text(), 'S2 true');
