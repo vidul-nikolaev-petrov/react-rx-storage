@@ -10,7 +10,7 @@ import {
 } from './react-components';
 
 it('Test basic functionality', label => {
-    const component = shallow(<StepOne  />);
+    const component = shallow(<StepOne />);
     const compFalse = () => assert.equal(component.text(), 'S1 false');
     const compTrue = () => assert.equal(component.text(), 'S1 true');
 
@@ -113,7 +113,8 @@ function promise(fn, async, label) {
 };
 
 function it(label, fn) {
-    fn(label);
+    // push each test on the message queue
+    setTimeout(() => fn(label));
 }
 
 function colorGreenPass() {
