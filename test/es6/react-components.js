@@ -1,24 +1,25 @@
 import React from 'react';
+import Rx from 'rxjs/Rx';
 import s$ from '../../indexES5';
 
 export class StepOne extends React.Component {
     // basic storage functionaity
     constructor(props) {
         super(props);
-        this.state = { stepOne: false };
+        this.state = { testStep: false };
         this.onClick = this.onClick.bind(this);
 
         s$.subscribe(this);
     }
 
     onClick() {
-        s$.dispatch(this, 'stepOne', !this.state.stepOne);
+        s$.dispatch(this, 'testStep', !this.state.testStep);
     }
 
     render() {
         return (
             <div onClick={this.onClick}>
-                { this.state.stepOne ? 'S1 true' : 'S1 false' }
+                { this.state.testStep ? 'S1 true' : 'S1 false' }
             </div>
         );
     }
@@ -29,7 +30,7 @@ export class StepTwo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stepTwo: false,
+            testStep: false,
             globalStepTwo: false,
         };
         this.onClick = this.onClick.bind(this);
@@ -38,8 +39,8 @@ export class StepTwo extends React.Component {
     }
 
     onClick() {
-        s$.dispatch(this, 'stepTwo', !this.state.stepTwo, { globally: true });
-        this.setState({ globalStepTwo: s$.getGlobal('stepTwo') });
+        s$.dispatch(this, 'testStep', !this.state.testStep, { globally: true });
+        this.setState({ globalStepTwo: s$.getGlobal('testStep') });
     }
 
     render() {
@@ -55,7 +56,7 @@ export class StepThree extends React.Component {
     // set state through observer
     constructor(props) {
         super(props);
-        this.state = { stepThree: false };
+        this.state = { testStep: false };
         this.onClick = this.onClick.bind(this);
 
         s$.subscribe(this);
@@ -63,18 +64,18 @@ export class StepThree extends React.Component {
 
     onClick() {
         const onSuccess = () => {
-            const stepThree = !this.state.stepThree;
-            this.setState({ stepThree });
-            return stepThree;
+            const testStep = !this.state.testStep;
+            this.setState({ testStep });
+            return testStep;
         };
 
-        s$.dispatch(this, 'stepThree', null, { onSuccess });
+        s$.dispatch(this, 'testStep', null, { onSuccess });
     }
 
     render() {
         return (
             <div onClick={this.onClick}>
-                { this.state.stepThree ? 'S3 true' : 'S3 false' }
+                { this.state.testStep ? 'S3 true' : 'S3 false' }
             </div>
         );
     }
@@ -84,7 +85,7 @@ export class StepFour extends React.Component {
     // set state through promise
     constructor(props) {
         super(props);
-        this.state = { stepFour: '' };
+        this.state = { testStep: '' };
         this.onSuccess = this.onSuccess.bind(this);
         this.onError = this.onError.bind(this);
 
@@ -95,32 +96,32 @@ export class StepFour extends React.Component {
         const result = 'success';
         const promise = new Promise((resolve, _) => resolve());
         const onSuccess = () => {
-            this.setState({ stepFour: result });
+            this.setState({ testStep: result });
             return result;
         };
 
-        s$.dispatch(this, 'stepFour', promise, { onSuccess });
+        s$.dispatch(this, 'testStep', promise, { onSuccess });
     }
 
     onError() {
         const result = 'error';
         const promise = new Promise((_, reject) => reject());
         const onError = () => {
-            this.setState({ stepFour: result });
+            this.setState({ testStep: result });
             return result;
         };
 
-        s$.dispatch(this, 'stepFour', promise, { onError });
+        s$.dispatch(this, 'testStep', promise, { onError });
     }
 
     render() {
         return (
             <div>
                 <div onClick={this.onSuccess} id="success">
-                    { this.state.stepFour }
+                    { this.state.testStep }
                 </div>
                 <div onClick={this.onError} id="error">
-                    { this.state.stepFour }
+                    { this.state.testStep }
                 </div>
             </div>
         );
@@ -131,7 +132,7 @@ export class StepFive extends React.Component {
     // set state on complete
     constructor(props) {
         super(props);
-        this.state = { stepFive: '' };
+        this.state = { testStep: '' };
         this.onComplete = this.onComplete.bind(this);
 
         s$.subscribe(this);
@@ -140,17 +141,44 @@ export class StepFive extends React.Component {
     onComplete() {
         const result = 'unsubscribed';
         const promise = new Promise((resolve) => resolve());
-        const getStepFive = () =>  s$.get(this, 'stepFive');
+        const getStepFive = () =>  s$.get(this, 'testStep');
         const onSuccess = () => result;
-        const onComplete = () => this.setState({ stepFive: getStepFive() });
+        const onComplete = () => this.setState({ testStep: getStepFive() });
 
-        s$.dispatch(this, 'stepFive', promise, { onSuccess, onComplete });
+        s$.dispatch(this, 'testStep', promise, { onSuccess, onComplete });
     }
 
     render() {
         return (
             <div onClick={this.onComplete}>
-                { this.state.stepFive }
+                { this.state.testStep }
+            </div>
+        );
+    }
+}
+
+export class StepSix extends React.Component {
+    // set state by observable
+    constructor(props) {
+        super(props);
+        this.state = { testStep: 0 };
+        this.onClick = this.onClick.bind(this);
+
+        s$.subscribe(this);
+    }
+
+    onClick() {
+        const source1 = Rx.Observable.of('Hello ');
+        const source2 = Rx.Observable.of('World!');
+        const sourceResult = Rx.Observable.zip(source1, source2);
+
+        s$.dispatch(this, 'testStep', sourceResult);
+    }
+
+    render() {
+        return (
+            <div onClick={this.onClick}>
+                { this.state.testStep }
             </div>
         );
     }

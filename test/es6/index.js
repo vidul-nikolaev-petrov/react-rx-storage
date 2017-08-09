@@ -6,7 +6,8 @@ import {
     StepTwo,
     StepThree,
     StepFour,
-    StepFive
+    StepFive,
+    StepSix,
 } from './react-components';
 
 it('Test basic functionality', label => {
@@ -69,6 +70,16 @@ it('Test on complete', label => {
     const component = shallow(<StepFive />);
     const compareInitial = () => assert.equal(component.text(), '');
     const compareFinal = () => assert.equal(component.find('div').text(), 'unsubscribed');
+
+    promiseIt(compareInitial);
+    component.find('div').simulate('click');
+    promiseItAsync(compareFinal, label);
+});
+
+it('Test observable', label => {
+    const component = shallow(<StepSix />);
+    const compareInitial = () => assert.equal(component.text(), '0');
+    const compareFinal = () => assert.equal(component.text(), 'Hello World!');
 
     promiseIt(compareInitial);
     component.find('div').simulate('click');
